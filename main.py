@@ -31,8 +31,37 @@ def create_new_offer(offers, products, customers):
     choosing products, and calculating totals.
     """
     # Omogućite unos kupca
+    print('Unesite kupca:')
+    for i, customer in enumerate(offers):
+        print(f'{i + 1}. {customer['customer']}')
+        
+    customer_index = int(input('Unesite broj željenog kupca: '))
+    selected_customer = offers[customer_index]
+    
+    # Unos datuma
+    date = input('Unesite datum: ')
+    
+    # Biranje proizvoda
+    print('Odaberite proizvod:')
+    for i, product in enumerate(products):
+        print(f'{i + 1}. {product['name']} = {product['price']}')
+        
     # Izračunajte sub_total, tax i total
+    product_index = int(input("Unesite broj proizvoda: ")) - 1
+    selected_product = products[product_index]
+    
+    total = selected_product['price']
+
     # Dodajte novu ponudu u listu offers
+    new_offer = {
+        'customer': selected_customer,
+        'date': date,
+        'product': selected_product,
+        'total': total
+                 }
+    offers.append(new_offer)
+    print("Ponuda je uspješno kreirana!")
+    
     pass
 
 
@@ -42,8 +71,36 @@ def manage_products(products):
     Allows the user to add a new product or modify an existing product.
     """
     # Omogućite korisniku izbor između dodavanja ili izmjene proizvoda
+    print('Odaberite broj "1" kako bi dodali proizvod ili broj "2" kako bi izmijenili postojeći proizvod: ')
+    choice = int(input('Unesite broj: '))
+     
     # Za dodavanje: unesite podatke o proizvodu i dodajte ga u listu products
+    if choice == 1:
+        name = input("Unesite naziv proizvoda: ")
+        price = float(input("Unesite cijenu proizvoda: "))
+        new_product = {'name': name, 'price': price}
+        products.append(new_product)
+        print(f"Proizvod '{name}' je uspješno dodan!")
     # Za izmjenu: selektirajte proizvod i ažurirajte podatke
+    elif choice == 2:
+        print("Dostupni proizvodi:")
+        for i, product in enumerate(products):
+            print(f"{i + 1}. {product['name']} - {product['price']}")
+            product_index = int(input("Unesite broj proizvoda za izmjenu: ")) - 1
+            
+        if 0 <= product_index < len(products):
+            new_name = input("Unesite novi naziv proizvoda: ")
+            new_price = input("Unesite novu cijenu proizvoda: ")
+
+            if new_name:
+                products[product_index]['name'] = new_name
+            if new_price:
+                products[product_index]['price'] = float(new_price)
+
+            print("Proizvod je uspješno ažuriran!")
+        else:
+            print("Nevažeći odabir proizvoda!")
+
     pass
 
 
