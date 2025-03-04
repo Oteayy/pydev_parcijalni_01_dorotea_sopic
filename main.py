@@ -45,10 +45,11 @@ def create_new_offer(offers, products, customers):
     print('Odaberite proizvod:')
     for i, product in enumerate(products):
         print(f'{i + 1}. {product['name']} = {product['price']}')
-        
-    # Izračunajte sub_total, tax i total
     product_index = int(input("Unesite broj proizvoda: ")) - 1
     selected_product = products[product_index]
+        
+    # Izračunajte sub_total, tax i total
+    
     
     total = selected_product['price']
 
@@ -99,7 +100,7 @@ def manage_products(products):
 
             print("Proizvod je uspješno ažuriran!")
         else:
-            print("Nevažeći odabir proizvoda!")
+            print("Došlo je do greške, pokušajte ponovno!")
 
     pass
 
@@ -111,6 +112,35 @@ def manage_customers(customers):
     """
     # Za dodavanje: omogući unos imena kupca, emaila i unos VAT ID-a
     # Za pregled: prikaži listu svih kupaca
+    while True:
+        print('Dodaj novog kupca(1)')
+        print('Pregledaj sve kupce(2)')
+    
+        choice = int(input('Unesite broj: '))
+        
+        if choice == 1:
+            name = input('Unesite ime kupca: ')
+            email = input('Unesite email kupca: ')
+            vat_id = input('Unesite VAT ID kupca: ')
+            
+            new_customer = {
+                'name': name,
+                'email': email,
+                'vat_id': vat_id
+            }
+            
+            customers.append(new_customer)
+            print(f'Kupac {name} je dodan!')
+            
+        elif choice == 2:
+            print('\nLista kupaca:')
+            for i, customer in enumerate(customers, start=1):
+                print(f'{i}. Ime: {customer['name']}, Email: {customer['email']}, VAT ID: {customer['vat_id']}')
+        else:
+            print('Nevažeći izbor. Pokušajte ponovno!')
+            
+            
+    
     pass
 
 
@@ -120,6 +150,24 @@ def display_offers(offers):
     Display all offers, offers for a selected month, or a single offer by ID.
     """
     # Omogućite izbor pregleda: sve ponude, po mjesecu ili pojedinačna ponuda
+    print('Odaberite jednu od sljedećih opcija:')
+    print('Sve ponude(1)')
+    print('Ponude po mjesecu(2)')
+    print('Pojedinačna ponuda po ID-u')
+    
+    choice = int(input('Unesite broj: '))
+    
+    if choice == 1:
+       for offer in offers:
+           print(offer) 
+    elif choice == 2:
+        date = input('Unesite broj mjeseca: ')
+        
+    elif choice == 3:
+        offer_id = input('Unesite Id ponude: ')
+    else:
+        print('Ponuda nije pronađena.')
+            
     # Prikaz relevantnih ponuda na temelju izbora
     pass
 
